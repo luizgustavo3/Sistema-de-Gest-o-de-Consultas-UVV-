@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Gestão de Consultas UVV</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="navbar">
+        <a class="brand" asp-controller="Consultas" asp-action="Index">Gestão de Consultas UVV</a>
+        <nav>
+            @if (User.Identity is { IsAuthenticated: true })
+            {
+                <span class="user-info">Olá, @User.Identity.Name</span>
+                <a asp-controller="Consultas" asp-action="Index">Minhas Consultas</a>
+                <form asp-controller="Conta" asp-action="Logout" method="post" class="inline-form">
+                    <button type="submit" class="link-button">Sair</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Conta" asp-action="Login">Entrar</a>
+                <a asp-controller="Conta" asp-action="Cadastro">Criar conta</a>
+            }
+        </nav>
+    </header>
+    <main class="container">
+        @if (TempData["Mensagem"] != null)
+        {
+            <div class="alert alert-success">@TempData["Mensagem"]</div>
+        }
+        @RenderBody()
+    </main>
+    <footer class="footer">
+        &copy; @DateTime.Now.Year - Sistema de Gestão de Consultas UVV
+    </footer>
+</body>
+</html>

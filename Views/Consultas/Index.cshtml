@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Consulta>
+@{
+    ViewData["Title"] = "Minhas Consultas";
+}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <h2>Minhas Consultas</h2>
+    <a class="btn" asp-controller="Consultas" asp-action="Create">+ Nova Consulta</a>
+</div>
+@if (!Model.Any())
+{
+    <p>Você ainda não tem consultas agendadas.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Especialidade</th>
+                <th>Data e Hora</th>
+                <th>Descrição</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var consulta in Model)
+        {
+            <tr>
+                <td>@consulta.Especialidade</td>
+                <td>@consulta.DataHora.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@consulta.Descricao</td>
+                <td class="actions">
+                    <a asp-controller="Consultas" asp-action="Edit" asp-route-id="@consulta.Id">Editar</a>
+                    <a asp-controller="Consultas" asp-action="Delete" asp-route-id="@consulta.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
